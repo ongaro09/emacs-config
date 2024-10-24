@@ -1,0 +1,1 @@
+This repository contains my emacs configuration. Iterations will be based on my specific needs.
