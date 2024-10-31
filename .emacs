@@ -1,29 +1,35 @@
 ;; Initialize package sources
+
 (require 'package)
-
-(setq package-archives '(("melpa-stable" . "https://stable.melpa.org/packages/")))
-
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
 
-;; Install use-package if not already installed
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+;; Set Font-type
+(set-face-attribute 'default nil
+                    :font "Fira Code Retina"
+                    :height 120)
 
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-;; Display line numbers
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 
 ;; Disable tool bar
 (tool-bar-mode -1)
 
+;; Display current column
+(setq column-number-mode t)
+
 ;; Default frame size
 (add-to-list 'default-frame-alist '(width . 135))
-`(add-to-list 'default-frame-alist '(height . 41))
+(add-to-list 'default-frame-alist '(height . 41))
+
+;; Configure auctex
+(setenv "PATH" (concat "/usr/local/texlive/2024/bin/x86_64-linux:" (getenv "PATH")))
+(setq exec-path (append '("/usr/local/texlive/2024/bin/x86_64-linux") exec-path))
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
 
 ;; Custom variables
 (custom-set-variables
@@ -32,7 +38,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(package-selected-packages '(## markdown-mode magit)))
+ '(package-selected-packages '(auctex ## markdown-mode smex)))
 
 ;; Custom faces
 (custom-set-faces
